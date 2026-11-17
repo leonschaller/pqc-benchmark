@@ -1,0 +1,5 @@
+algorithm,security_level,family,signature_bytes,verify_ms,public_key_provisioning_bytes,sign_ms_secondary,signature_size_ratio_vs_ed25519,verify_time_ratio_vs_ed25519,public_key_ratio_vs_ed25519,note
+Ed25519,,Classical,64,0.072194,32,0.034751,1.0,1.0,1.0,bytes and milliseconds remain separate; signing time is secondary
+ML-DSA-87,5,Lattice,4627,0.098226,2592,0.185716,72.296875,1.360584,81.0,bytes and milliseconds remain separate; signing time is secondary
+SLH-DSA-SHA2-256s,5,Hash-based,29792,1.222746,64,1021.309199,465.5,16.936948,2.0,bytes and milliseconds remain separate; signing time is secondary
+SLH-DSA-SHA2-256f,5,Hash-based,49856,2.389198,64,101.831587,779.0,33.094135,2.0,bytes and milliseconds remain separate; signing time is secondary

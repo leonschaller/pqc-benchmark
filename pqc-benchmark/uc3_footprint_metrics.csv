@@ -1,0 +1,10 @@
+algorithm,security_level,family,key_material_footprint_bytes,peak_keygen_process_rss_kb,peak_encaps_process_rss_kb,peak_decaps_process_rss_kb,footprint_ratio_vs_x25519,timing_representativeness,ram_note
+X25519,,Classical,64,53992,53992,53992,1.0,desktop timings are not representative for UC3,fresh-process peak RSS is best-effort and kept separate from exact key footprint
+ML-KEM-768,3,Lattice,3584,53992,53992,53992,56.0,desktop timings are not representative for UC3,fresh-process peak RSS is best-effort and kept separate from exact key footprint
+Classic-McEliece-460896,3,Code (Goppa),537768,53992,53992,53992,8402.625,desktop timings are not representative for UC3,fresh-process peak RSS is best-effort and kept separate from exact key footprint
+HQC-192,3,Code (QC),9116,53992,53992,53992,142.4375,desktop timings are not representative for UC3,fresh-process peak RSS is best-effort and kept separate from exact key footprint
+Hybrid-X25519-ML-KEM-768,3,Hybrid,3648,53992,53992,53992,57.0,desktop timings are not representative for UC3,fresh-process peak RSS is best-effort and kept separate from exact key footprint
+ML-KEM-1024,5,Lattice,4736,53992,53992,53992,74.0,desktop timings are not representative for UC3,fresh-process peak RSS is best-effort and kept separate from exact key footprint
+Classic-McEliece-6960119,5,Code (Goppa),1061267,53992,53992,53992,16582.296875,desktop timings are not representative for UC3,fresh-process peak RSS is best-effort and kept separate from exact key footprint
+HQC-256,5,Code (QC),14570,53992,53992,53992,227.65625,desktop timings are not representative for UC3,fresh-process peak RSS is best-effort and kept separate from exact key footprint
+Hybrid-X25519-ML-KEM-1024,5,Hybrid,4800,55108,55108,55108,75.0,desktop timings are not representative for UC3,fresh-process peak RSS is best-effort and kept separate from exact key footprint

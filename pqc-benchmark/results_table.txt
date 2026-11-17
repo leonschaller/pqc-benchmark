@@ -1,0 +1,43 @@
+Machine: AMD Ryzen 7 3800X 8-Core Processor @ 3.89 GHz | liboqs 0.16.0 | bindings 0.16.0 | PyNaCl 1.6.2 | build: optimised Release distribution build (runtime dispatch; HQC reference) | CPU affinity: 0
+
+Timing notation: median [IQR] milliseconds. Peak RAM is maximum fresh-process RSS.
+KEM size ratio: public key divided by the same-level ML-KEM.
+Signature size ratio: signature divided by Ed25519.
+
+KEM ABSOLUTE VALUES
+algorithm                  L  pk B       sk B    ct/sig B  ss B  keygen median [IQR] ms  op1 median [IQR] ms  op2 median [IQR] ms  n key/op   peak RSS kg/o1/o2 KB  size ratio
+-------------------------  -  ---------  ------  --------  ----  ----------------------  -------------------  -------------------  ---------  --------------------  ----------
+X25519                     -  32         32      32        32    0.0228 [0.0032]         0.0628 [0.0122]      0.0388 [0.0061]      1000/1000  53992/53992/53992     N/A       
+ML-KEM-768                 3  1,184      2,400   1,088     32    0.0223 [0.0051]         0.0256 [0.0072]      0.0263 [0.0069]      1000/1000  53992/53992/53992     1.000     
+Classic-McEliece-460896    3  524,160    13,608  156       32    139.8819 [28.6586]      0.1013 [0.0430]      0.1340 [0.0293]      30/1000    53992/53992/53992     442.703   
+HQC-192                    3  4,514      4,602   8,978     32    4.3026 [1.4050]         9.8188 [3.1647]      15.1451 [3.3634]     1000/1000  53992/53992/53992     3.812     
+Hybrid-X25519-ML-KEM-768   3  1,216      2,432   1,120     64    0.0498 [0.0115]         0.0960 [0.0218]      0.0710 [0.0137]      1000/1000  53992/53992/53992     1.027     
+ML-KEM-1024                5  1,568      3,168   1,568     32    0.0308 [0.0074]         0.0351 [0.0106]      0.0365 [0.0097]      1000/1000  53992/53992/53992     1.000     
+Classic-McEliece-6960119   5  1,047,319  13,948  194       32    181.7423 [90.4663]      0.1809 [0.0803]      0.1412 [0.0369]      30/1000    53992/53992/53992     667.933   
+HQC-256                    5  7,237      7,333   14,421    32    11.5846 [2.3808]        23.9063 [3.7268]     36.0831 [4.6846]     1000/1000  53992/53992/53992     4.615     
+Hybrid-X25519-ML-KEM-1024  5  1,600      3,200   1,600     64    0.0572 [0.0158]         0.1057 [0.0232]      0.0816 [0.0153]      1000/1000  55108/55108/55108     1.020     
+
+SIGNATURE ABSOLUTE VALUES
+algorithm          L  pk B   sk B   ct/sig B  ss B  keygen median [IQR] ms  op1 median [IQR] ms   op2 median [IQR] ms  n key/op   peak RSS kg/o1/o2 KB  size ratio
+-----------------  -  -----  -----  --------  ----  ----------------------  --------------------  -------------------  ---------  --------------------  ----------
+Ed25519            -  32     64     64        -     0.0223 [0.0062]         0.0348 [0.0099]       0.0722 [0.0166]      1000/1000  58180/58180/58180     1.000     
+ML-DSA-87          5  2,592  4,896  4,627     -     0.0896 [0.0210]         0.1857 [0.1209]       0.0982 [0.0260]      1000/1000  61380/61380/61380     72.297    
+SLH-DSA-SHA2-256s  5  64     128    29,792    -     78.8960 [13.5979]       1021.3092 [110.6758]  1.2227 [0.4086]      1000/1000  64452/64452/64452     465.500   
+SLH-DSA-SHA2-256f  5  64     128    49,856    -     4.2845 [1.2837]         101.8316 [20.1169]    2.3892 [0.7091]      1000/1000  67524/67524/67524     779.000   
+
+HQC note: the labels HQC-192/HQC-256 map to liboqs HQC-3/HQC-5; their sizes are version-dependent.
+
+IMPLEMENTATIONS
+  X25519: PyNaCl crypto_kx_keypair + crypto_scalarmult | PyNaCl 1.6.2; bundled libsodium 1.0.20-stable (2025-12-31 build)
+  ML-KEM-768: ML-KEM-768 | FIPS203
+  Classic-McEliece-460896: Classic-McEliece-460896 | SUPERCOP-20221025
+  HQC-192: HQC-3 | https://gitlab.com/pqc-hqc/hqc@161cd4f
+  Hybrid-X25519-ML-KEM-768: X25519 + ML-KEM-768 | PyNaCl 1.6.2 (bundled libsodium 1.0.20-stable (2025-12-31 build)) + FIPS203
+  ML-KEM-1024: ML-KEM-1024 | FIPS203
+  Classic-McEliece-6960119: Classic-McEliece-6960119 | SUPERCOP-20221025
+  HQC-256: HQC-5 | https://gitlab.com/pqc-hqc/hqc@161cd4f
+  Hybrid-X25519-ML-KEM-1024: X25519 + ML-KEM-1024 | PyNaCl 1.6.2 (bundled libsodium 1.0.20-stable (2025-12-31 build)) + FIPS203
+  Ed25519: PyNaCl crypto_sign | PyNaCl 1.6.2; bundled libsodium 1.0.20-stable (2025-12-31 build)
+  ML-DSA-87: ML-DSA-87 | FIPS204
+  SLH-DSA-SHA2-256s: SLH_DSA_PURE_SHA2_256S | FIPS205
+  SLH-DSA-SHA2-256f: SLH_DSA_PURE_SHA2_256F | FIPS205

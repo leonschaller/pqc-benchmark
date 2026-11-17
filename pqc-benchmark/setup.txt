@@ -1,0 +1,72 @@
+PQC Benchmark - Setup and Run
+
+Supplementary material to the master's thesis
+"Post-Quantum Cryptography in Defence Supply Chains: A Strategic and Technical
+Evaluation for Industrial Suppliers" (Chapter 7 and Appendix C)
+Leon Schaller, University of St.Gallen, November 2026
+
+Machine: AMD Ryzen 7 3800X 8-Core Processor @ approximately 3.89 GHz
+Operating system: Ubuntu 24.04.2 LTS under WSL2 (Windows 11 Pro host)
+Python: 3.12.3
+liboqs / liboqs-python: 0.16.0 / 0.16.0
+PyNaCl: 1.6.2 with bundled libsodium 1.0.20-stable
+Build: optimised Release distribution build with runtime dispatch; HQC reference implementation
+CPU affinity: core 0 only
+Timing: time.perf_counter_ns; no outlier deletion
+Measurements: 1,000 per operation after 5 warm-ups; 30 key generations for each Classic McEliece variant
+RAM: 3 fresh Linux worker processes per algorithm and operation; absolute ru_maxrss is a conservative process-level peak
+RNG: operating-system-backed CSPRNG; a common deterministic seed is not exposed by all production APIs
+
+Algorithms: 9 KEMs and 4 signatures. Besides the six PQ KEMs and three PQ
+signatures, the set contains the classical baselines X25519 and Ed25519 and
+the real sequential wrappers X25519 + ML-KEM-768 and X25519 + ML-KEM-1024.
+The column stage_added marks the core PQC set (Stage 1) and the baselines and
+hybrids added afterwards (Stage 2).
+The hybrid artefacts and secrets are concatenated in X25519 || ML-KEM order
+for this benchmark. Raw X25519 output and raw concatenation are not production
+key material; a production protocol requires a domain-separated KDF.
+
+HQC mapping: the labels HQC-192 and HQC-256 are reported, while
+liboqs 0.16.0 exposes the actual identifiers HQC-3 and HQC-5. The exact
+identifier, implementation revision, and version-dependent sizes are recorded
+in summary_results.csv and environment.json.
+
+Primary outputs:
+  summary_results.csv / results.csv - 13-row summary with median, Q1, Q3, IQR, stddev, n, sizes, ratios, and peak RAM
+  raw_results.csv - 37,060 retained integer-nanosecond timing samples
+  memory_results.csv - 117 fresh-process RAM trials
+  results_table.txt - plain absolute KEM/signature tables
+  uc1_kem_metrics.csv, uc2_signature_metrics.csv, uc3_footprint_metrics.csv - use-case metrics
+  uc1_network_time.csv - modelled duration of one key establishment per scheme, variant and link profile
+  median_ci.csv - 95 % confidence interval of each timing median
+  scenario_tables.txt - formulas and plain scenario tables
+  environment.txt / environment.json / requirements.lock.txt - reproducibility record
+  kem_sizes.png, signature_sizes.png - artefact sizes (log scale) with absolute-value tables
+  kem_timings.png, signature_timings.png - median timings with IQR (log scale)
+  kem_public_keys_linear.png - KEM public-key sizes on a linear scale
+  SHA256SUMS - file-integrity manifest
+
+Run (Linux or WSL2, liboqs 0.16.0 installed as a shared library):
+  python3 -m venv .venv
+  source .venv/bin/activate
+  pip install -r requirements.lock.txt
+  python crypto_self_test.py
+  python benchmark.py            # about 26 minutes; overwrites the result files
+  python scenario_analysis.py
+  python network_model.py
+  python median_ci.py
+  python plot.py
+  python verify_results.py
+  python build_manifest.py
+
+All scripts except crypto_self_test.py and benchmark.py only read the CSV files
+and do not need liboqs, so the delivered results can be checked without a new run.
+
+Notes on this package:
+  The source files were tidied after the measurement run (comments, labels and
+  path handling only; measurement and analysis logic unchanged). The values
+  under SOURCE SHA-256 in environment.txt / environment.json therefore identify
+  the source state at run time. Absolute local paths in the run record were
+  replaced by project-relative paths.
+
+See methodology_notes.md for the use-case definitions and declared assumptions.

@@ -1,0 +1,41 @@
+SCENARIO TABLES
+
+Assumptions:
+  UC1 ephemeral wire = pk + ct; latency = keygen + encaps + decaps.
+  UC1 static wire = ct; latency = encaps + decaps; pk is pre-provisioned.
+  UC2 keeps bytes and milliseconds separate. No composite score is invented.
+  UC3 primary footprint = pk + sk; desktop timings are not representative.
+
+UC1 KEM METRICS
+algorithm                  ephemeral_wire_bytes  static_wire_bytes  ephemeral_crypto_latency_ms  static_crypto_latency_ms
+-------------------------  --------------------  -----------------  ---------------------------  ------------------------
+X25519                     64                    32                 0.124441                     0.101647                
+ML-KEM-768                 2272                  1088               0.074298                     0.051972                
+Classic-McEliece-460896    524316                156                140.117218                   0.235349                
+HQC-192                    13492                 8978               29.266491                    24.963908               
+Hybrid-X25519-ML-KEM-768   2336                  1120               0.216841                     0.167023                
+ML-KEM-1024                3136                  1568               0.102383                     0.071566                
+Classic-McEliece-6960119   1047513               194                182.064424                   0.322174                
+HQC-256                    21658                 14421              71.57406                     59.989483               
+Hybrid-X25519-ML-KEM-1024  3200                  1600               0.244468                     0.187258                
+
+UC2 SIGNATURE METRICS
+algorithm          signature_bytes  verify_ms  public_key_provisioning_bytes  sign_ms_secondary
+-----------------  ---------------  ---------  -----------------------------  -----------------
+Ed25519            64               0.072194   32                             0.034751         
+ML-DSA-87          4627             0.098226   2592                           0.185716         
+SLH-DSA-SHA2-256s  29792            1.222746   64                             1021.309199      
+SLH-DSA-SHA2-256f  49856            2.389198   64                             101.831587       
+
+UC3 KEY FOOTPRINT
+algorithm                  key_material_footprint_bytes  footprint_ratio_vs_x25519
+-------------------------  ----------------------------  -------------------------
+X25519                     64                            1.0                      
+ML-KEM-768                 3584                          56.0                     
+Classic-McEliece-460896    537768                        8402.625                 
+HQC-192                    9116                          142.4375                 
+Hybrid-X25519-ML-KEM-768   3648                          57.0                     
+ML-KEM-1024                4736                          74.0                     
+Classic-McEliece-6960119   1061267                       16582.296875             
+HQC-256                    14570                         227.65625                
+Hybrid-X25519-ML-KEM-1024  4800                          75.0                     

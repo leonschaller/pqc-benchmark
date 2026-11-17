@@ -1,0 +1,10 @@
+algorithm,security_level,family,ephemeral_wire_bytes,static_wire_bytes,preprovisioned_public_key_bytes,ephemeral_crypto_latency_ms,static_crypto_latency_ms,ephemeral_wire_ratio_vs_x25519,static_wire_ratio_vs_x25519,ephemeral_latency_ratio_vs_x25519,static_latency_ratio_vs_x25519,latency_scope
+X25519,,Classical,64,32,32,0.124441,0.101647,1.0,1.0,1.0,1.0,"cryptographic component only; excludes RTT, transport, and authentication"
+ML-KEM-768,3,Lattice,2272,1088,1184,0.074298,0.051972,35.5,34.0,0.597054,0.511299,"cryptographic component only; excludes RTT, transport, and authentication"
+Classic-McEliece-460896,3,Code (Goppa),524316,156,524160,140.117218,0.235349,8192.4375,4.875,1125.973096,2.315356,"cryptographic component only; excludes RTT, transport, and authentication"
+HQC-192,3,Code (QC),13492,8978,4514,29.266491,24.963908,210.8125,280.5625,235.183669,245.594144,"cryptographic component only; excludes RTT, transport, and authentication"
+Hybrid-X25519-ML-KEM-768,3,Hybrid,2336,1120,1216,0.216841,0.167023,36.5,35.0,1.742521,1.643167,"cryptographic component only; excludes RTT, transport, and authentication"
+ML-KEM-1024,5,Lattice,3136,1568,1568,0.102383,0.071566,49.0,49.0,0.822743,0.704064,"cryptographic component only; excludes RTT, transport, and authentication"
+Classic-McEliece-6960119,5,Code (Goppa),1047513,194,1047319,182.064424,0.322174,16367.390625,6.0625,1463.058188,3.169538,"cryptographic component only; excludes RTT, transport, and authentication"
+HQC-256,5,Code (QC),21658,14421,7237,71.57406,59.989483,338.40625,450.65625,575.164616,590.174653,"cryptographic component only; excludes RTT, transport, and authentication"
+Hybrid-X25519-ML-KEM-1024,5,Hybrid,3200,1600,1600,0.244468,0.187258,50.0,50.0,1.964529,1.842238,"cryptographic component only; excludes RTT, transport, and authentication"

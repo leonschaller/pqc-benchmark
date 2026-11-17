@@ -1,0 +1,52 @@
+PQC BENCHMARK REPRODUCIBILITY RECORD
+
+Machine: AMD Ryzen 7 3800X 8-Core Processor @ 3.89 GHz | liboqs 0.16.0 | bindings 0.16.0 | PyNaCl 1.6.2 | build: optimised Release distribution build (runtime dispatch; HQC reference) | CPU affinity: 0
+Started UTC: 2026-08-20T18:17:49.928614+00:00
+Finished UTC: 2026-08-20T18:43:47.182932+00:00
+OS: Ubuntu 24.04.2 LTS; Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39
+Python: 3.12.3 (.venv-wsl/bin/python)
+Compiler: cc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+liboqs: 0.16.0
+liboqs-python: 0.16.0
+Local liboqs source-checkout commit (binary provenance not independently proven): 241f638ad2f1023877d6d237007c2cccc6633083
+Build type: optimised Release distribution build (runtime dispatch; HQC reference)
+CMake: cmake version 3.28.3
+Ninja: 1.11.1
+OpenSSL: OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)
+glibc: ldd (Ubuntu GLIBC 2.39-0ubuntu8.4) 2.39
+PyNaCl: 1.6.2
+libsodium: bundled libsodium 1.0.20-stable (2025-12-31 build)
+psutil: 7.2.2
+Measured iterations per operation: 1000
+Classic McEliece keygen iterations: 30
+Warm-ups: 5
+Memory repetitions: 3
+Timing clock: time.perf_counter_ns
+Spread: inclusive Q1/Q3 and IQR; population standard deviation
+Peak RAM: maximum Linux ru_maxrss from repeated fresh worker processes, including runtime and operation setup
+RNG seed: not fixed; liboqs and PyNaCl use their OS-backed CSPRNGs and do not expose a safe common deterministic seed for these production APIs
+
+ALGORITHM IMPLEMENTATIONS
+  X25519: PyNaCl crypto_kx_keypair + crypto_scalarmult | PyNaCl 1.6.2; bundled libsodium 1.0.20-stable (2025-12-31 build)
+  ML-KEM-768: ML-KEM-768 | FIPS203
+  Classic-McEliece-460896: Classic-McEliece-460896 | SUPERCOP-20221025
+  HQC-192: HQC-3 | https://gitlab.com/pqc-hqc/hqc@161cd4f
+  Hybrid-X25519-ML-KEM-768: X25519 + ML-KEM-768 | PyNaCl 1.6.2 (bundled libsodium 1.0.20-stable (2025-12-31 build)) + FIPS203
+  ML-KEM-1024: ML-KEM-1024 | FIPS203
+  Classic-McEliece-6960119: Classic-McEliece-6960119 | SUPERCOP-20221025
+  HQC-256: HQC-5 | https://gitlab.com/pqc-hqc/hqc@161cd4f
+  Hybrid-X25519-ML-KEM-1024: X25519 + ML-KEM-1024 | PyNaCl 1.6.2 (bundled libsodium 1.0.20-stable (2025-12-31 build)) + FIPS203
+  Ed25519: PyNaCl crypto_sign | PyNaCl 1.6.2; bundled libsodium 1.0.20-stable (2025-12-31 build)
+  ML-DSA-87: ML-DSA-87 | FIPS204
+  SLH-DSA-SHA2-256s: SLH_DSA_PURE_SHA2_256S | FIPS205
+  SLH-DSA-SHA2-256f: SLH_DSA_PURE_SHA2_256F | FIPS205
+
+SOURCE SHA-256
+  benchmark.py: 279cc4540b186bd65c1ce6d9b44f53f6061fc7c5898fa4e35a1be41acc17aefa
+  memory_worker.py: fa6c3cd56d6ce981f3738992bb15f66d33f852ca6230eb33400d6291302ffb11
+  scenario_analysis.py: 0ac0e4a7517f36a72c6b95fa6e49b1e8cf15950668c77b97d3208ac0b7047527
+  plot.py: 9cc2064367e58ac3ef8c6cf28d76bf10ed2ee21c9426459fa8397163a31a0734
+  crypto_self_test.py: 8ad8e626e3b66058c42ed06bdb4731387a782cfa9cacab6a41e0aa1fbd9bf126
+  verify_results.py: eb852738b407965da5d913d0b7e74fc78417b4a48c30532eb863be516f1d4a70
+  build_manifest.py: 21481bfaeb7e9e2b82e16bfdbd35ff7a7730e25559dec9d178280409026ab7c0
+  requirements.lock.txt: bbc5a5aba415e0cdfb230d60e86bacda7b503f8bff5fd3312707df4390774b32
